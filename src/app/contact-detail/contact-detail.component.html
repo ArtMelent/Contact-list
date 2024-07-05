@@ -1,0 +1,14 @@
+<button type="button" (click)="onBack()">Back</button>
+<div *ngIf="contact">
+  <h2>{{ contact.firstName }} {{ contact.lastName }}</h2>
+  <p><strong>Phone Number:</strong> {{ contact.phoneNumber }}</p>
+  <p><strong>Email:</strong> {{ contact.email }}</p>
+  <p><strong>Birth Date:</strong> {{ contact.birthDate | date }}</p>
+  <p><strong>Address:</strong> {{ contact.address }}</p>
+
+  <button (click)="onDelete()">Delete</button>
+  <button [routerLink]="['/edit', contact.id]">Edit</button>
+</div>
+<div *ngIf="!contact">
+  <p>Contact not found.</p>
+</div>

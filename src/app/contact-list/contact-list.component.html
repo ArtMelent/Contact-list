@@ -1,0 +1,21 @@
+<div>
+  <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Search contacts">
+</div>
+
+<div>
+  <button [routerLink]="['/contacts/new']">Add New Contact</button>
+</div>
+
+<div *ngIf="filteredContacts.length > 0; else noContacts">
+  <div *ngFor="let contact of filteredContacts">
+    <h3>{{ contact.firstName }} {{ contact.lastName }}</h3>
+    <p>{{ contact.phoneNumber }}</p>
+    <a [routerLink]="['/contacts/edit', contact.id]">Edit</a>
+    <a [routerLink]="['/contacts', contact.id]" routerLinkActive="active">View Details</a>
+    <button (click)="deleteContact(contact.id)">Delete</button>
+  </div>
+</div>
+
+<ng-template #noContacts>
+  <p>No contacts found.</p>
+</ng-template>

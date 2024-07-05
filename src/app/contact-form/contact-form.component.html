@@ -1,0 +1,52 @@
+<form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
+  <div>
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" [(ngModel)]="contact.firstName" name="firstName" required #firstName="ngModel">
+    <div *ngIf="firstName.invalid && firstName.touched" class="error">
+      First Name is required
+    </div>
+  </div>
+  <div>
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" [(ngModel)]="contact.lastName" name="lastName" required #lastName="ngModel">
+    <div *ngIf="lastName.invalid && lastName.touched" class="error">
+      Last Name is required
+    </div>
+  </div>
+  <div>
+    <label for="phoneNumber">Phone Number
+      <small>Format: 123-456-7890</small>
+    </label>
+    <input type="text" id="phoneNumber" [(ngModel)]="contact.phoneNumber" name="phoneNumber" required pattern="^\d{3}-\d{3}-\d{4}$" maxlength="12" #phoneNumber="ngModel">
+    <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="error">
+      Phone Number is required and must be in the format 123-456-7890
+    </div>
+    <div *ngIf="duplicatePhoneNumber && phoneNumber.touched" class="error">
+      Phone Number already exists
+    </div>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" [(ngModel)]="contact.email" name="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" #email="ngModel">
+    <div *ngIf="email.invalid && email.touched" class="error">
+      Email must be valid
+    </div>
+  </div>
+  <div>
+    <label for="birthDate">Birth Date</label>
+    <input type="date" id="birthDate" [(ngModel)]="contact.birthDate" name="birthDate">
+  </div>
+  <div>
+    <label for="address">Address</label>
+    <input type="text" id="address" [(ngModel)]="contact.address" name="address">
+  </div>
+  <button type="submit" [disabled]="contactForm.invalid">{{ isEdit ? 'Update' : 'Add' }} Contact</button>
+  <button type="button" (click)="onCancel()">Cancel</button>
+</form>
+
+<style>
+  .error {
+    color: red;
+    font-size: small;
+  }
+</style>
